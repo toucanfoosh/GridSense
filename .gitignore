@@ -1,1 +1,6 @@
+.DS_Store
+backend/.DS_Store
 backend/data/utilities.csv
+backend/preprocessing/energy_data.csv
+backend/preprocessing/weather_data.csv
+backend/preprocessing/energy_analysis_plots.png
