@@ -17,9 +17,11 @@ const Searchbar: React.FC<Props> = (props) => {
   const [searching, setSearching] = useState(false);
 
   const handleSearch = () => {
-    props.setHome(false);
-    props.setQuery(query);
-    props.setResult(props.onSearch(query));
+    if (!isNaN(Number(query)) && query.length === 5) {
+      props.setHome(false);
+      props.setQuery(query);
+      props.setResult(props.onSearch(query));
+    }
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {

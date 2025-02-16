@@ -13,8 +13,8 @@ export default function Result(props: Props) {
       <div className="text-2xl font-bold">{result}</div>
       <div className="text-lg">ounces of heating oil this month</div>
       <div className="text-sm">
-        Compared to the average of {result} ounces per month for the zip code{" "}
-        {query}
+        {/* Compared to the average of {result} ounces per month for the zip code{" "} */}
+        For the zip code of {query}
       </div>
     </div>
   );
