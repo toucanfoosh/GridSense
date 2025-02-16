@@ -3,21 +3,39 @@ import requests
 
 app = FastAPI()
 
-GEOCODE_API = "https://geocode.maps.co/search?q={zipcode} USA&api_key=YOUR_API_KEY"
+GEOCODE_API = "https://geocode.maps.co/search?q={zipcode} USA&api_key={GEOCODE_API_KEY}"
 WEATHER_API = "https://api.weather.gov/points/{lat},{lon}"
 
 
 @app.get("/predict/{zipcode}")
 def get_prediction(zipcode: str):
-    geo_response = requests.get(GEOCODE_API.format(zipcode=zipcode)).json()
-    lat, lon = geo_response[0]["lat"], geo_response[0]["lon"]
+    try:
+        geo_response = requests.get(GEOCODE_API.format(zipcode=zipcode, GEOCODE_API_KEY="67b10bf57f1f2832936557ioy877f2e"))
+        geo_response.raise_for_status()  # Raise an exception for 4xx/5xx errors
+        geo_data = geo_response.json()
+        lat, lon = geo_data[0]["lat"], geo_data[0]["lon"]
+    except requests.exceptions.RequestException as e:
+        return {"error": f"Geocoding API request failed: {e}"}
 
-    weather_response = requests.get(WEATHER_API.format(lat=lat, lon=lon)).json()
+    try:
+        weather_response = requests.get(WEATHER_API.format(lat=lat, lon=lon))
+        weather_response.raise_for_status()
+        weather_data = weather_response.json()
+    except requests.exceptions.RequestException as e:
+        return {"error": f"Weather API request failed: {e}"}
+    
+    try:
+        weather_forecast_response = requests.get(weather_data['properties']['forecast']);
+        weather_forecast_response.raise_for_status()
+        weather_forecast = weather_forecast_response.json();
+    except requests.exceptions.RequestException as e:
+        return {"error:" f"Weather API request failed: {e}"}
+    
 
     # Hardcoded prediction value for now
     prediction = "85 percent"
 
-    return {"zipcode": zipcode, "prediction": prediction}
+    return {"zipcode": zipcode, "prediction": prediction, "weather_data": weather_forecast['properties']}
 
 
 # Run with: uvicorn filename:app --reload
