@@ -8,7 +8,9 @@ export default function Home() {
   const [home, setHome] = useState(true);
   const [animating, setAnimating] = useState(false);
 
-  function onSearch(query: string) {
+  // ---- Commented out for initial deployment ----
+  // function onSearch(zip: string) {
+  function onSearch() {
     // TODO: API call and display results
   }
 
