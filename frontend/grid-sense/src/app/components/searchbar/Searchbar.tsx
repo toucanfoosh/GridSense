@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./Searchbar.css";
 import { IoMdSearch } from "react-icons/io";
+import axios from "axios";
 
 interface Props {
   onSearch: (query: string) => number;
@@ -16,8 +17,20 @@ const Searchbar: React.FC<Props> = (props) => {
   const [query, setQuery] = useState(props.textFill || "");
   const [searching, setSearching] = useState(false);
 
-  const handleSearch = () => {
+  async function isValidZip(zip: string): Promise<boolean> {
+    try {
+      const response = await axios.get(`https://api.zippopotam.us/us/${zip}`);
+      return response.status === 200;
+    } catch {
+      return false;
+    }
+  }
+
+  const handleSearch = async () => {
     if (!isNaN(Number(query)) && query.length === 5) {
+      if (!(await isValidZip(query))) {
+        return;
+      }
       props.setHome(false);
       props.setQuery(query);
       props.setResult(props.onSearch(query));

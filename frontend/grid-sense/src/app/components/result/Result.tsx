@@ -9,13 +9,20 @@ export default function Result(props: Props) {
 
   return (
     <div className="rounded-lg gs-border-tertiary p-4 w-full h-full">
-      <div className="text-lg">We expect you to use</div>
-      <div className="text-2xl font-bold">{result}</div>
-      <div className="text-lg">ounces of heating oil this month</div>
-      <div className="text-sm">
-        {/* Compared to the average of {result} ounces per month for the zip code{" "} */}
-        For the zip code of {query}
-      </div>
+      {result ? (
+        <>
+          <div className="text-lg">We expect you to use</div>
+          <div className="text-2xl font-bold">{result}</div>
+          <div className="text-lg">ounces of heating oil this month</div>
+          <div className="text-sm">For the zip code of {query}</div>
+        </>
+      ) : (
+        <>
+          <div className="text-lg gs-color-danger">
+            An error occurred. Please verify your zip code and try again.
+          </div>
+        </>
+      )}
     </div>
   );
 }
