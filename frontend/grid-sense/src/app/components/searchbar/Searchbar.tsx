@@ -4,10 +4,9 @@ import { IoMdSearch } from "react-icons/io";
 
 interface Props {
   onSearch: (query: string) => void;
-  height?: string;
-  width?: string;
   textFill?: string;
   locationFill?: string;
+  setHome: (home: boolean) => void;
 }
 
 const Searchbar: React.FC<Props> = (props) => {
@@ -15,16 +14,8 @@ const Searchbar: React.FC<Props> = (props) => {
   const [query, setQuery] = useState(props.textFill || "");
   const [searching, setSearching] = useState(false);
 
-  let height = "100%";
-  let width = "100%";
-  if (props.height) {
-    height = props.height;
-  }
-  if (props.width) {
-    width = props.width;
-  }
-
   const handleSearch = () => {
+    props.setHome(false);
     props.onSearch(query);
   };
 
@@ -39,8 +30,7 @@ const Searchbar: React.FC<Props> = (props) => {
       <div
         className={`${
           searching ? "left-[1px] top-[1px]" : ""
-        } flex justify-start items-center gs-text gs-border-tertiary gs-background-secondary gs-searchbar pe-5 relative focus:top-[1px] focus:left-[1px]`}
-        style={{ height, width }}
+        } h-[3rem] w-[45vw] min-w-[10rem] flex justify-start items-center gs-text gs-border-tertiary gs-background-secondary gs-searchbar pe-5 relative focus:top-[1px] focus:left-[1px]`}
       >
         <div
           className="cursor-pointer h-full flex items-center ps-5 pe-2"
@@ -62,10 +52,7 @@ const Searchbar: React.FC<Props> = (props) => {
           />
         </div>
       </div>
-      <div
-        className="z-[-1] flex justify-start items-center gs-text gs-background-dark-tertiary gs-searchbar px-5 absolute top-[2px] left-[2px]"
-        style={{ height, width }}
-      ></div>
+      <div className="h-[3rem] w-[45vw] min-w-[10rem] z-[-1] flex justify-start items-center gs-text gs-background-dark-tertiary gs-searchbar px-5 absolute top-[2px] left-[2px]"></div>
     </div>
   );
 };

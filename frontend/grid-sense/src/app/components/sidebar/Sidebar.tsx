@@ -4,7 +4,11 @@ import Link from "next/link";
 import "./Sidebar.css";
 import "../../globals.css";
 
-export default function Sidebar() {
+interface Props {
+  setHome: (home: boolean) => void;
+}
+
+const Sidebar: React.FC<Props> = (props) => {
   const [open, setOpen] = useState(false);
   const [width, setWidth] = useState("0");
 
@@ -25,7 +29,7 @@ export default function Sidebar() {
   }, [open]);
 
   return (
-    <div className="fixed top-0 left-0 ps-6 justify-between flex w-full z-20 ">
+    <div className="fixed top-0 left-0 ps-6 justify-between flex z-20 ">
       <div className="flex items-center z-50 h-[5rem]">
         <div id="nav-icon" className={open ? "open" : ""} onClick={handleClick}>
           <span></span>
@@ -33,7 +37,13 @@ export default function Sidebar() {
           <span></span>
           <span></span>
         </div>
-        <Link href="/" onClick={() => setOpen(false)}>
+        <Link
+          href="/"
+          onClick={() => {
+            setOpen(false);
+            props.setHome(true);
+          }}
+        >
           <div className="z-10 ps-4 text-2xl cursor-pointer gs-text">
             GridSense
           </div>
@@ -44,7 +54,7 @@ export default function Sidebar() {
         style={{ width }}
         onClick={open ? handleClick : undefined}
       />
-      <div className="gs-background-30 backdrop-blur-md absolute top-0 left-0 z-[9] w-screen h-[5rem]" />
+      <div className="gs-background-30 absolute top-0 left-0 h-[5rem]" />
       <div className={`text-xl fullscreen-panel ${open ? "open" : ""} flex`}>
         <div className="p-6 ms-[3px] pt-14 gl-color-primary h-full w-[16rem]">
           <div className="pt-2 flex flex-col h-full justify-between">
@@ -58,4 +68,6 @@ export default function Sidebar() {
       </div>
     </div>
   );
-}
+};
+
+export default Sidebar;
