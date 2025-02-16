@@ -32,7 +32,7 @@ export default function Home() {
       <div className={`flex flex-col items-center no-highlight`}>
         <div className={`${!home && !animating ? "opacity-0" : ""}`}>
           <div className="text-6xl cursor-default w-[100vw] text-center">
-            GridSense
+            ThermaSense AI
           </div>
           <p className="pb-4 w-[100vw] text-center">
             The smart solution to energy optimizations

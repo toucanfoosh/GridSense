@@ -45,7 +45,7 @@ const Sidebar: React.FC<Props> = (props) => {
           }}
         >
           <div className="z-10 ps-4 text-2xl cursor-pointer gs-text">
-            GridSense
+            ThermaSense AI
           </div>
         </Link>
       </div>
