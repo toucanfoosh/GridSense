@@ -15,7 +15,7 @@ def get_prediction(zipcode: str):
     weather_response = requests.get(WEATHER_API.format(lat=lat, lon=lon)).json()
 
     # Hardcoded prediction value for now
-    prediction = "85 percent likelihood of increased heating oil demand"
+    prediction = "85 percent"
 
     return {"zipcode": zipcode, "prediction": prediction}
 
