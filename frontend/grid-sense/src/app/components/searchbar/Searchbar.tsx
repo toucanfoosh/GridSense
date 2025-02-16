@@ -3,10 +3,11 @@ import "./Searchbar.css";
 import { IoMdSearch } from "react-icons/io";
 
 interface Props {
-  onSearch: (query: string) => void;
+  onSearch: (query: string) => number;
   textFill?: string;
   locationFill?: string;
   setHome: (home: boolean) => void;
+  setResult: (search: number) => void;
 }
 
 const Searchbar: React.FC<Props> = (props) => {
@@ -16,7 +17,7 @@ const Searchbar: React.FC<Props> = (props) => {
 
   const handleSearch = () => {
     props.setHome(false);
-    props.onSearch(query);
+    props.setResult(props.onSearch(query));
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {

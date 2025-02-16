@@ -5,7 +5,7 @@ import "./Sidebar.css";
 import "../../globals.css";
 
 interface Props {
-  setHome: (home: boolean) => void;
+  setHome?: (home: boolean) => void;
 }
 
 const Sidebar: React.FC<Props> = (props) => {
@@ -41,11 +41,13 @@ const Sidebar: React.FC<Props> = (props) => {
           href="/"
           onClick={() => {
             setOpen(false);
-            props.setHome(true);
+            if (props.setHome) {
+              props.setHome(true);
+            }
           }}
         >
           <div className="z-10 ps-4 text-2xl cursor-pointer gs-text">
-            ThermaSense AI
+            ThermaSense
           </div>
         </Link>
       </div>

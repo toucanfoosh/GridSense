@@ -8,8 +8,8 @@ const jost = Jost({
 });
 
 export const metadata: Metadata = {
-  title: "ThermaSense AI",
-  description: "The smart solution to utility optimizations",
+  title: "ThermaSense",
+  description: "The smart predictor for your heating consumption",
 };
 
 export default function RootLayout({

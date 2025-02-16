@@ -3,16 +3,12 @@ import Sidebar from "./components/sidebar/Sidebar";
 import Searchbar from "./components/searchbar/Searchbar";
 import Result from "./components/result/Result";
 import { useState, useEffect } from "react";
+import onSearch from "./functions/onSearch";
 
 export default function Home() {
   const [home, setHome] = useState(true);
   const [animating, setAnimating] = useState(false);
-
-  // ---- Commented out for initial deployment ----
-  // function onSearch(zip: string) {
-  function onSearch() {
-    // TODO: API call and display results
-  }
+  const [result, setResult] = useState(0);
 
   useEffect(() => {
     if (!home) {
@@ -32,10 +28,10 @@ export default function Home() {
       <div className={`flex flex-col items-center no-highlight`}>
         <div className={`${!home && !animating ? "opacity-0" : ""}`}>
           <div className="text-6xl cursor-default w-[100vw] text-center">
-            ThermaSense AI
+            ThermaSense
           </div>
           <p className="pb-4 w-[100vw] text-center">
-            The smart solution to energy optimizations
+            The smart predictor for your heating consumption
           </p>
         </div>
 
@@ -44,14 +40,26 @@ export default function Home() {
             home ? "ms-0" : "ms-[50vw] md:ms-0"
           }`}
         >
-          <Searchbar onSearch={onSearch} setHome={setHome} />
+          <Searchbar
+            onSearch={onSearch}
+            setHome={setHome}
+            setResult={setResult}
+          />
         </div>
 
-        {!home && !animating && (
-          <div className="text-center mt-24 w-[60vw] h-[60vh]">
-            <Result />
-          </div>
-        )}
+        <div
+          className={`text-center mt-24 w-[60vw] h-[60vh] transition-[margin] duration-[2s] ease ${
+            !home ? "" : "mt-[100vh]"
+          }`}
+        >
+          <Result result={result} />
+        </div>
+        <p className="py-4 w-[100vw] text-center">
+          Read more about the project{" "}
+          <a href="/about" className="underline gs-color-tertiary">
+            here
+          </a>
+        </p>
       </div>
     </main>
   );
