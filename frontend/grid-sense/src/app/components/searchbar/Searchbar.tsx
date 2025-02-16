@@ -8,6 +8,7 @@ interface Props {
   locationFill?: string;
   setHome: (home: boolean) => void;
   setResult: (search: number) => void;
+  setQuery: (query: string) => void;
 }
 
 const Searchbar: React.FC<Props> = (props) => {
@@ -17,6 +18,7 @@ const Searchbar: React.FC<Props> = (props) => {
 
   const handleSearch = () => {
     props.setHome(false);
+    props.setQuery(query);
     props.setResult(props.onSearch(query));
   };
 

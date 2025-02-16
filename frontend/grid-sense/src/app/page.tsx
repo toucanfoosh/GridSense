@@ -9,6 +9,7 @@ export default function Home() {
   const [home, setHome] = useState(true);
   const [animating, setAnimating] = useState(false);
   const [result, setResult] = useState(0);
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     if (!home) {
@@ -44,15 +45,16 @@ export default function Home() {
             onSearch={onSearch}
             setHome={setHome}
             setResult={setResult}
+            setQuery={setQuery}
           />
         </div>
 
         <div
-          className={`text-center mt-24 w-[60vw] h-[60vh] transition-[margin] duration-[2s] ease ${
-            !home ? "" : "mt-[100vh]"
+          className={`text-center mx-5 transition-[margin] duration-[2s] ease ${
+            !home ? "mt-8" : "mt-[100vh]"
           }`}
         >
-          <Result result={result} />
+          <Result result={result} query={query} />
         </div>
         <p className="py-4 w-[100vw] text-center">
           Read more about the project{" "}
