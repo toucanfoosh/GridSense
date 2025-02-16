@@ -31,6 +31,9 @@ def get_prediction(zipcode: str):
     except requests.exceptions.RequestException as e:
         return {"error:" f"Weather API request failed: {e}"}
     
+    # for now hardcode input
+    # tavg, tmin, tmax, prcp, wdir, wspd, pres
+    hardcode = [3.2, 1.1, 5,0, 342, 15.1, 1002.7]
 
     # Hardcoded prediction value for now
     prediction = "85 percent"
