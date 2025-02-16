@@ -31,14 +31,18 @@ def get_prediction(zipcode: str):
     except requests.exceptions.RequestException as e:
         return {"error:" f"Weather API request failed: {e}"}
     
+    forecast_periods = weather_forecast['properties']['periods']
+    temps = [period['temperature'] for period in forecast_periods]
+    min_temp = min(temps)
+    max_temp = max(temps)
+    avg_temp = sum(temps) / len(temps)
+
     # for now hardcode input
     # tavg, tmin, tmax, prcp, wdir, wspd, pres
-    hardcode = [3.2, 1.1, 5,0, 342, 15.1, 1002.7]
-
+    input_ml = [avg_temp, min_temp, max_temp, 0, 342, 15.1, 1002.7]
     # Hardcoded prediction value for now
     prediction = "85 percent"
-
-    return {"zipcode": zipcode, "prediction": prediction, "weather_data": weather_forecast['properties']}
+    return {"zipcode": zipcode, "prediction": prediction, "weather_data": input_ml}
 
 
 # Run with: uvicorn filename:app --reload
